@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 function Header({ user, setUser }) {
   const navigate = useNavigate();
@@ -10,6 +10,8 @@ function Header({ user, setUser }) {
   };
 
   return (
+
+
     <header className="header">
       <div className="container">
         <h1 className="logo">
@@ -26,6 +28,7 @@ function Header({ user, setUser }) {
             <>
               <Link to="/login" className="nav-link">Login</Link>
               <Link to="/register" className="nav-link">Register</Link>
+
             </>
           )}
         </nav>
@@ -35,5 +38,8 @@ function Header({ user, setUser }) {
 }
 
 export default Header;
+<<<<<<< main
+=======
 
 
+>>>>>>> main
