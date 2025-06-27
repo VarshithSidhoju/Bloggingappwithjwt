@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Header({ user, setUser }) {
   const navigate = useNavigate();
@@ -9,31 +9,48 @@ function Header({ user, setUser }) {
     navigate('/');
   };
 
+  const navLinkClass = ({ isActive }) =>
+    `px-4 py-2 rounded hover:bg-blue-100 transition ${
+      isActive ? 'text-blue-600 font-medium' : 'text-gray-700'
+    }`;
+
   return (
-    <header className="header">
-      <div className="container">
-        <h1 className="logo">
-          <Link to="/">Blog App</Link>
-        </h1>
-        <nav className="navigation" aria-label="Main navigation">
+    <header className="bg-white shadow-sm">
+      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+        {/* Logo / Brand */}
+        <NavLink to="/" className="text-xl font-bold text-blue-600">
+          BlogApp
+        </NavLink>
+
+        {/* Navigation Links */}
+        <div className="flex space-x-4 items-center">
           {user ? (
             <>
-              <Link to="/create" className="nav-link">Create Post</Link>
-              <span className="user-greeting">Hi, {user.name}</span>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
+              <NavLink to="/create" className={navLinkClass}>
+                Create Post
+              </NavLink>
+              <span className="text-gray-600">Hi, {user.name}</span>
+              <button
+                onClick={handleLogout}
+                className="ml-2 text-red-500 hover:underline focus:outline-none"
+              >
+                Logout
+              </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-link">Login</Link>
-              <Link to="/register" className="nav-link">Register</Link>
+              <NavLink to="/login" className={navLinkClass}>
+                Login
+              </NavLink>
+              <NavLink to="/register" className={navLinkClass}>
+                Register
+              </NavLink>
             </>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );
 }
 
 export default Header;
-
-
