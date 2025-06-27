@@ -10,35 +10,25 @@ function Header({ user, setUser }) {
   };
 
   return (
-    <header className="header bg-white shadow-md">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        <h1 className="text-2xl font-bold text-blue-600">
+
+
+    <header className="header">
+      <div className="container">
+        <h1 className="logo">
           <Link to="/">Blog App</Link>
         </h1>
-
-        <nav className="flex items-center space-x-4" aria-label="Main navigation">
+        <nav className="navigation" aria-label="Main navigation">
           {user ? (
             <>
-              <NavLink to="/create" className="text-sm font-medium hover:text-blue-500">
-                Create Post
-              </NavLink>
-              <span className="text-sm text-gray-700">Hi, {user.name}</span>
-              <button
-                onClick={handleLogout}
-                className="text-sm font-medium text-red-600 hover:underline"
-                aria-label="Logout"
-              >
-                Logout
-              </button>
+              <Link to="/create" className="nav-link">Create Post</Link>
+              <span className="user-greeting">Hi, {user.name}</span>
+              <button onClick={handleLogout} className="logout-button">Logout</button>
             </>
           ) : (
             <>
-              <NavLink to="/login" className="text-sm font-medium hover:text-blue-500">
-                Login
-              </NavLink>
-              <NavLink to="/register" className="text-sm font-medium hover:text-blue-500">
-                Register
-              </NavLink>
+              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/register" className="nav-link">Register</Link>
+
             </>
           )}
         </nav>
@@ -48,3 +38,8 @@ function Header({ user, setUser }) {
 }
 
 export default Header;
+<<<<<<< main
+=======
+
+
+>>>>>>> main
