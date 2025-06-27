@@ -1,64 +1,42 @@
-import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 function Header({ user, setUser }) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      localStorage.removeItem('token');
-      setUser(null);
-      navigate('/');
-    }
+    localStorage.removeItem('token');
+    setUser(null);
+    navigate('/');
   };
 
-  const navLinkClass = ({ isActive }) =>
-    isActive
-      ? 'text-blue-600 font-semibold'
-      : 'text-gray-700 hover:text-blue-500';
-
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <NavLink to="/" className="text-2xl font-bold text-blue-600">
-          BlogApp
-        </NavLink>
+    <header className="header bg-white shadow-md">
+      <div className="container mx-auto flex items-center justify-between py-4 px-6">
+        <h1 className="text-2xl font-bold text-blue-600">
+          <Link to="/">Blog App</Link>
+        </h1>
 
-        <button
-          className="md:hidden text-gray-700 focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation"
-        >
-          ☰
-        </button>
-
-        <nav
-          className={`${
-            menuOpen ? 'block' : 'hidden'
-          } md:flex md:items-center space-x-6`}
-          aria-label="Main Navigation"
-        >
+        <nav className="flex items-center space-x-4" aria-label="Main navigation">
           {user ? (
             <>
-              <NavLink to="/create" className={navLinkClass}>
+              <NavLink to="/create" className="text-sm font-medium hover:text-blue-500">
                 Create Post
               </NavLink>
-              <span className="text-gray-600">Hi, {user.name}</span>
+              <span className="text-sm text-gray-700">Hi, {user.name}</span>
               <button
                 onClick={handleLogout}
-                className="text-red-600 hover:underline focus:outline-none"
+                className="text-sm font-medium text-red-600 hover:underline"
+                aria-label="Logout"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <NavLink to="/login" className={navLinkClass}>
+              <NavLink to="/login" className="text-sm font-medium hover:text-blue-500">
                 Login
               </NavLink>
-              <NavLink to="/register" className={navLinkClass}>
+              <NavLink to="/register" className="text-sm font-medium hover:text-blue-500">
                 Register
               </NavLink>
             </>
