@@ -1,34 +1,66 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Header({ user, setUser }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    navigate('/');
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      localStorage.removeItem('token');
+      setUser(null);
+      navigate('/');
+    }
   };
 
+  const navLinkClass = ({ isActive }) =>
+    isActive
+      ? 'text-blue-600 font-semibold'
+      : 'text-gray-700 hover:text-blue-500';
+
   return (
+    <header className="bg-white shadow-md">
+      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+        <NavLink to="/" className="text-2xl font-bold text-blue-600">
+          BlogApp
+        </NavLink>
 
+        <button
+          className="md:hidden text-gray-700 focus:outline-none"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation"
+        >
+          ☰
+        </button>
 
-    <header className="header">
-      <div className="container">
-        <h1 className="logo">
-          <Link to="/">Blog App</Link>
-        </h1>
-        <nav className="navigation" aria-label="Main navigation">
+        <nav
+          className={`${
+            menuOpen ? 'block' : 'hidden'
+          } md:flex md:items-center space-x-6`}
+          aria-label="Main Navigation"
+        >
           {user ? (
             <>
-              <Link to="/create" className="nav-link">Create Post</Link>
-              <span className="user-greeting">Hi, {user.name}</span>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
+              <NavLink to="/create" className={navLinkClass}>
+                Create Post
+              </NavLink>
+              <span className="text-gray-600">Hi, {user.name}</span>
+              <button
+                onClick={handleLogout}
+                className="text-red-600 hover:underline focus:outline-none"
+              >
+                Logout
+              </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-link">Login</Link>
-              <Link to="/register" className="nav-link">Register</Link>
-
+              <NavLink to="/login" className={navLinkClass}>
+                Login
+              </NavLink>
+              <NavLink to="/register" className={navLinkClass}>
+                Register
+              </NavLink>
             </>
           )}
         </nav>
@@ -38,8 +70,3 @@ function Header({ user, setUser }) {
 }
 
 export default Header;
-<<<<<<< main
-=======
-
-
->>>>>>> main
